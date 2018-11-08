@@ -32,15 +32,24 @@
 
     var emptyTile;
     var blueTile;
+    var player = "blue";
+    var playerTile;
+    var playerBorderedTile;
     
     function setup() {
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
         textureSet.frame = new PIXI.Rectangle(0,0,10,10);
         emptyTile = new Sprite(textureSet.clone());
+
         textureSet.frame = new PIXI.Rectangle(10,0,10,10);
         blueTile = new Sprite(textureSet.clone());
         textureSet.frame = new PIXI.Rectangle(20,0,10,10);
         blueBorderedTile = new Sprite(textureSet.clone());
+        
+        textureSet.frame = new PIXI.Rectangle(30,0,10,10);
+        redTile = new Sprite(textureSet.clone());
+        textureSet.frame = new PIXI.Rectangle(40,0,10,10);
+        redBorderedTile = new Sprite(textureSet.clone());
                 
         for(let x=0; x<800; x += 10) {
             for(let y=0; y<600; y += 10) {
@@ -60,19 +69,34 @@
             }
         }
         
+        playerTile = blueTile;
+        playerBorderedTile = blueBorderedTile;
+
     }
     function onSpriteDown() {
-        this.texture = blueBorderedTile.texture;
+        this.texture = playerBorderedTile.texture;
+        changePlayer();
     }
     function onSpriteOver() {
-        this.texture = blueTile.texture;
+        this.texture = playerTile.texture;
     }
     function onSpriteOut() {
-        if(this.texture == blueTile.texture) {
+        if(this.texture == playerTile.texture) {
             this.texture = emptyTile.texture;
         }
     }
-    
+    function changePlayer() {
+        if(player == "blue") {
+            player = "red";
+            playerTile = redTile;
+            playerBorderedTile = redBorderedTile;
+        } else {
+            player = "blue";
+            playerTile = blueTile;
+            playerBorderedTile = blueBorderedTile;
+
+        }
+    }
   </script>
 </body>
 </html>
