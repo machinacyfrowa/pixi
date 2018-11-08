@@ -37,8 +37,10 @@
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
         textureSet.frame = new PIXI.Rectangle(0,0,10,10);
         emptyTile = new Sprite(textureSet.clone());
-        textureSet.frame = new PIXI.Rectangle(20,0,10,10);
+        textureSet.frame = new PIXI.Rectangle(10,0,10,10);
         blueTile = new Sprite(textureSet.clone());
+        textureSet.frame = new PIXI.Rectangle(20,0,10,10);
+        blueBorderedTile = new Sprite(textureSet.clone());
                 
         for(let x=0; x<800; x += 10) {
             for(let y=0; y<600; y += 10) {
@@ -51,16 +53,25 @@
                     // Mouse & touch events are normalized into
                     // the pointer* events for handling different
                     // button events.
-                    .on('pointerdown', onButtonDown)
+                    .on('pointerdown', onSpriteDown)
+                    .on('pointerover', onSpriteOver)
+                    .on('pointerout', onSpriteOut);
                 app.stage.addChild(tile);
             }
         }
         
     }
-    function onButtonDown() {
+    function onSpriteDown() {
+        this.texture = blueBorderedTile.texture;
+    }
+    function onSpriteOver() {
         this.texture = blueTile.texture;
     }
-
+    function onSpriteOut() {
+        if(this.texture == blueTile.texture) {
+            this.texture = emptyTile.texture;
+        }
+    }
     
   </script>
 </body>
