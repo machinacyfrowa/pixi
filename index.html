@@ -35,6 +35,13 @@
     var player = "blue";
     var playerTile;
     var playerBorderedTile;
+    var gameField = new PIXI.Container();
+    app.stage.addChild(gameField);
+    gameField.width = 800;
+    gameField.height = 600;
+    gameField.x = (app.screen.width - 800) / 2;
+    gameField.y = (app.screen.height - 600) / 2;
+
 
     function setup() {
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
@@ -65,7 +72,7 @@
                     .on('pointerdown', onSpriteDown)
                     .on('pointerover', onSpriteOver)
                     .on('pointerout', onSpriteOut);
-                app.stage.addChild(tile);
+                gameField.addChild(tile);
             }
         }
 
