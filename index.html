@@ -35,6 +35,9 @@
     var player = "blue";
     var playerTile;
     var playerBorderedTile;
+    var bluePoints = 0;
+    var redPoints = 0;
+
     var gameField = new PIXI.Container();
     app.stage.addChild(gameField);
     gameField.width = 800;
@@ -46,15 +49,17 @@
                                         );
     activePlayerText.x = (app.screen.width - activePlayerText.width) /2;
     app.stage.addChild(activePlayerText);
-    var bluePointsText = new PIXI.Text('Punkty gracza niebieskiego:',
+    var bluePointsText = new PIXI.Text('Punkty gracza niebieskiego: '+bluePoints,
                                           {fontFamily : 'Arial', fontSize: 24, fill : 0x1010ff, align : 'left'}
                                         );
     app.stage.addChild(bluePointsText);
-    var redPointsText = new PIXI.Text('Punkty gracza czerwonego:',
+    var redPointsText = new PIXI.Text('Punkty gracza czerwonego: '+redPoints,
                                           {fontFamily : 'Arial', fontSize: 24, fill : 0xff1010, align : 'right'}
                                         );
     redPointsText.x = app.screen.width - redPointsText.width;
     app.stage.addChild(redPointsText);
+
+
 
     function setup() {
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
@@ -96,8 +101,16 @@
     function onSpriteDown() {
         if(this.texture == playerTile.texture) {
           this.texture = playerBorderedTile.texture;
+          if(player == "red") {
+            redPoints++;
+            redPointsText.text = 'Punkty gracza czerwonego: ' + redPoints;
+          } else if(player == "blue") {
+            bluePoints++;
+            bluePointsText.text = 'Punkty gracza niebieskiego: ' + bluePoints;
+          }
           changePlayer();
         }
+
     }
     function onSpriteOver() {
         if(this.texture == emptyTile.texture)
