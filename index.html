@@ -35,7 +35,7 @@
     var player = "blue";
     var playerTile;
     var playerBorderedTile;
-    
+
     function setup() {
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
         textureSet.frame = new PIXI.Rectangle(0,0,10,10);
@@ -45,12 +45,12 @@
         blueTile = new Sprite(textureSet.clone());
         textureSet.frame = new PIXI.Rectangle(20,0,10,10);
         blueBorderedTile = new Sprite(textureSet.clone());
-        
+
         textureSet.frame = new PIXI.Rectangle(30,0,10,10);
         redTile = new Sprite(textureSet.clone());
         textureSet.frame = new PIXI.Rectangle(40,0,10,10);
         redBorderedTile = new Sprite(textureSet.clone());
-                
+
         for(let x=0; x<800; x += 10) {
             for(let y=0; y<600; y += 10) {
                 let tile = new Sprite(emptyTile.texture)
@@ -68,17 +68,20 @@
                 app.stage.addChild(tile);
             }
         }
-        
+
         playerTile = blueTile;
         playerBorderedTile = blueBorderedTile;
 
     }
     function onSpriteDown() {
-        this.texture = playerBorderedTile.texture;
-        changePlayer();
+        if(this.texture == playerTile.texture) {
+          this.texture = playerBorderedTile.texture;
+          changePlayer();
+        }
     }
     function onSpriteOver() {
-        this.texture = playerTile.texture;
+        if(this.texture == emptyTile.texture)
+          this.texture = playerTile.texture;
     }
     function onSpriteOut() {
         if(this.texture == playerTile.texture) {
