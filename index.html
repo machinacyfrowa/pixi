@@ -46,6 +46,15 @@
                                         );
     activePlayerText.x = (app.screen.width - activePlayerText.width) /2;
     app.stage.addChild(activePlayerText);
+    var bluePointsText = new PIXI.Text('Punkty gracza niebieskiego:',
+                                          {fontFamily : 'Arial', fontSize: 24, fill : 0x1010ff, align : 'left'}
+                                        );
+    app.stage.addChild(bluePointsText);
+    var redPointsText = new PIXI.Text('Punkty gracza czerwonego:',
+                                          {fontFamily : 'Arial', fontSize: 24, fill : 0xff1010, align : 'right'}
+                                        );
+    redPointsText.x = app.screen.width - redPointsText.width;
+    app.stage.addChild(redPointsText);
 
     function setup() {
         let textureSet = PIXI.utils.TextureCache["img/tiles.png"];
